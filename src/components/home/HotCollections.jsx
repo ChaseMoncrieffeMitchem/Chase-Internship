@@ -16,7 +16,7 @@ const HotCollections = () => {
     return (
       <div
         className={className}
-        style={{ ...style, display: "block", background: "black" }}
+        style={{ ...style, display: "flex", backgroundColor: "black"}}
         onClick={onClick}
       />
     );
@@ -26,7 +26,7 @@ const HotCollections = () => {
     return (
       <div
         className={className}
-        style={{ ...style, display: "block", background: "black" }}
+        style={{ ...style, display: "flex", backgroundColor: "black"}}
         onClick={onClick}
       />
     );
@@ -74,7 +74,7 @@ const HotCollections = () => {
       );
       setCollections(data);
       console.log(data);
-      // setLoading(false);
+      setLoading(false);
     }
     fetchHotCollections();
   }, []);
@@ -96,7 +96,7 @@ const HotCollections = () => {
                     <div className="nft_coll">
                       <div className="nft_wrap">
                         <Skeleton className="lazy img-fluid"
-                        width="300px"
+                        width="323px"
                         height="300px"/>
                       </div>
                       <div className="nft_coll_pp">
