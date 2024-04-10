@@ -1,33 +1,51 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import AuthorImage from "../../images/author_thumbnail.jpg";
-import nftImage from "../../images/nftImage.jpg";
 import axios from "axios";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Skeleton from "../UI/Skeleton";
+import Countdown from "../Countdown";
 
 const NewItems = () => {
   const [newItems, setNewItems] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [timeLeft, setTimeLeft] = useState(0);
 
-  function SamplePrevArrow({ className, style, onClick }) {
+  function SamplePrevArrow(props) {
+    const { className, style, onClick } = props;
     return (
       <div
         className={className}
-        style={{ ...style, display: "flex", backgroundColor: "black" }}
+        style={{
+          ...style,
+          display: "flex",
+          backgroundColor: "black",
+          width: "40px",
+          height: "40px",
+          justifyContent: "center",
+          alignItems: "center",
+          borderRadius: "50%",
+        }}
         onClick={onClick}
       />
     );
   }
 
-  function SampleNextArrow({ className, style, onClick }) {
+  function SampleNextArrow(props) {
+    const { className, style, onClick } = props;
     return (
       <div
         className={className}
-        style={{ ...style, display: "flex", backgroundColor: "black" }}
+        style={{
+          ...style,
+          display: "flex",
+          backgroundColor: "black",
+          width: "40px",
+          height: "40px",
+          justifyContent: "center",
+          alignItems: "center",
+          borderRadius: "50%",
+        }}
         onClick={onClick}
       />
     );
@@ -78,42 +96,6 @@ const NewItems = () => {
     fetchNewItems();
     setLoading(false);
   }, []);
-
-  async function fetchExpiryDate() {
-    const { data } = await axios.get(
-      "https://us-central1-nft-cloud-functions.cloudfunctions.net/newItems"
-    );
-    for (let i = 0; i < data.length; ++i) {
-      setTimeLeft(data[i].expiryDate);
-      let milliSecCountdown = data[i].expiryDate ? data[i].expiryDate - Date.now() : null
-      let secondsCountdown = milliSecCountdown ? milliSecCountdown / 1000 : null
-      let minutesCountdown = secondsCountdown ? secondsCountdown / 60: null
-      let hoursCountdown = minutesCountdown ? minutesCountdown / 60 : null
-      
-      let secondsCountdownText = secondsCountdown ? Math.floor(secondsCountdown) % 60 + "s" : null
-      let minutesCountdownText = minutesCountdown ? Math.floor(minutesCountdown) % 60 + "m" : null
-      let hoursCountdownText = hoursCountdown ? Math.floor(hoursCountdown) % 60 + "h" : null
-
-      if (secondsCountdownText !== null && secondsCountdownText.toString().length === 2) {
-        secondsCountdownText = "0" + secondsCountdownText
-      }
-      if (minutesCountdownText !== null && minutesCountdownText.toString().length === 2) {
-        minutesCountdownText = "0" + minutesCountdownText
-      }
-      console.log(hoursCountdownText + minutesCountdownText + secondsCountdownText)
-    }
-  }
-
-  useEffect(() => {
-    fetchExpiryDate();
-  }, []);
-
-  // function countdownTimeLeft() {
-  //   let MilliSecTimeLeft = timeLeft ? timeLeft - Date.now() : null;
-  //   // console.log(MilliSecTimeLeft);
-  // }
-
-  // countdownTimeLeft();
 
   return (
     <section id="section-items" className="no-bottom">
@@ -182,7 +164,11 @@ const NewItems = () => {
                         <i className="fa fa-check"></i>
                       </Link>
                     </div>
-                    <div className="de_countdown">5h 30m 32s</div>
+                    {item.expiryDate && (
+                      <>
+                        <Countdown expiryDate={item.expiryDate} />
+                      </>
+                    )}
 
                     <div className="nft__item_wrap">
                       <div className="nft__item_extra">

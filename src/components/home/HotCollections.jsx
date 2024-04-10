@@ -1,7 +1,5 @@
 import React, { useEffect, useState, Component } from "react";
 import { Link } from "react-router-dom";
-import AuthorImage from "../../images/author_thumbnail.jpg";
-import nftImage from "../../images/nftImage.jpg";
 import axios from "axios";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -12,21 +10,41 @@ const HotCollections = () => {
   const [collections, setCollections] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  function SamplePrevArrow({ className, style, onClick }) {
+  function SamplePrevArrow(props) {
+    const { className, style, onClick } = props;
     return (
       <div
         className={className}
-        style={{ ...style, display: "flex", backgroundColor: "black"}}
+        style={{
+          ...style,
+          display: "flex",
+          backgroundColor: "black",
+          width: "40px",
+          height: "40px",
+          justifyContent: "center",
+          alignItems: "center",
+          borderRadius: "50%",
+        }}
         onClick={onClick}
       />
     );
   }
 
-  function SampleNextArrow({ className, style, onClick }) {
+  function SampleNextArrow(props) {
+    const { className, style, onClick } = props;
     return (
       <div
         className={className}
-        style={{ ...style, display: "flex", backgroundColor: "black"}}
+        style={{
+          ...style,
+          display: "flex",
+          backgroundColor: "black",
+          width: "40px",
+          height: "40px",
+          justifyContent: "center",
+          alignItems: "center",
+          borderRadius: "50%",
+        }}
         onClick={onClick}
       />
     );
@@ -95,22 +113,25 @@ const HotCollections = () => {
                   <div key={index}>
                     <div className="nft_coll">
                       <div className="nft_wrap">
-                        <Skeleton className="lazy img-fluid"
-                        width="323px"
-                        height="300px"/>
+                        <Skeleton
+                          className="lazy img-fluid"
+                          width="323px"
+                          height="300px"
+                        />
                       </div>
                       <div className="nft_coll_pp">
                         <Skeleton
-                        width="60px"
-                        height="60px"
-                        borderRadius="50%"/>
+                          width="60px"
+                          height="60px"
+                          borderRadius="50%"
+                        />
                         <i className="fa fa-check"></i>
                       </div>
                       <div className="nft_coll_info">
-                        <Skeleton width="160px" height="15px"/>
+                        <Skeleton width="160px" height="15px" />
                       </div>
                       <div>
-                        <Skeleton width="160px" height="15px"/>
+                        <Skeleton width="160px" height="15px" />
                       </div>
                     </div>
                   </div>
