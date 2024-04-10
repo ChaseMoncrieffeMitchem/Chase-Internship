@@ -2,10 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Skeleton from "../UI/Skeleton";
-import { useNavigate } from "react-router-dom"
 
 const TopSellers = () => {
-  let navigate = useNavigate()
   const [topSellers, setTopSellers] = useState([]);
   const [loading, setLoading] = useState(true);
 
