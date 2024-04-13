@@ -19,7 +19,6 @@ const ExploreItems = () => {
     );
     setExploreItems(data);
     setLoading(false);
-    console.log(data);
   }
 
   useEffect(() => {
