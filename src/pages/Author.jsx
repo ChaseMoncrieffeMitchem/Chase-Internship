@@ -9,6 +9,7 @@ const Author = () => {
   let { id } = useParams();
   const [authors, setAuthors] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [nft, setNft] = useState([])
 
   useEffect(() => {
     async function fetchAuthors() {
@@ -17,7 +18,9 @@ const Author = () => {
       );
       setLoading(false);
       setAuthors(data);
-      console.log(data);
+      setNft(data.nftCollection)
+      console.log(data.nftCollection);
+      console.log(data)
     }
     fetchAuthors();
   }, []);
@@ -42,15 +45,15 @@ const Author = () => {
                 <div className="d_profile de-flex">
                   <div className="de-flex-col">
                     <div className="profile_avatar">
-                      <img src={AuthorImage} alt="" />
+                      <img src={authors.authorImage} alt="" />
 
                       <i className="fa fa-check"></i>
                       <div className="profile_name">
                         <h4>
-                          Monica Lucas
-                          <span className="profile_username">@monicaaaa</span>
+                          {authors.authorName}
+                          <span className="profile_username">{authors.tag}</span>
                           <span id="wallet" className="profile_wallet">
-                            UDHUHWudhwd78wdt7edb32uidbwyuidhg7wUHIFUHWewiqdj87dy7
+                            {authors.address}
                           </span>
                           <button id="btn_copy" title="Copy Text">
                             Copy
@@ -61,7 +64,7 @@ const Author = () => {
                   </div>
                   <div className="profile_follow de-flex">
                     <div className="de-flex-col">
-                      <div className="profile_follower">573 followers</div>
+                      <div className="profile_follower">{}</div>
                       <Link to="#" className="btn-main">
                         Follow
                       </Link>
@@ -72,7 +75,9 @@ const Author = () => {
 
               <div className="col-md-12">
                 <div className="de_tab tab_simple">
-                  <AuthorItems author={authors}/>
+                  <AuthorItems author={authors}
+                  nft={nft}
+                  loading={loading}/>
                 </div>
               </div>
             </div>
