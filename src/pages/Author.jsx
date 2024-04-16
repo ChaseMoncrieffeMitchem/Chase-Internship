@@ -1,15 +1,32 @@
-import React from "react";
 import AuthorBanner from "../images/author_banner.jpg";
 import AuthorItems from "../components/author/AuthorItems";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import AuthorImage from "../images/author_thumbnail.jpg";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Author = () => {
+  let { id } = useParams();
+  const [authors, setAuthors] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchAuthors() {
+      const { data } = await axios.get(
+        `https://us-central1-nft-cloud-functions.cloudfunctions.net/authors?author=${id}`
+      );
+      setLoading(false);
+      setAuthors(data);
+      console.log(data);
+    }
+    fetchAuthors();
+  }, []);
+
   return (
     <div id="wrapper">
       <div className="no-bottom no-top" id="content">
         <div id="top"></div>
-
+        
         <section
           id="profile_banner"
           aria-label="section"
@@ -17,7 +34,7 @@ const Author = () => {
           data-bgimage="url(images/author_banner.jpg) top"
           style={{ background: `url(${AuthorBanner}) top` }}
         ></section>
-
+        
         <section aria-label="section">
           <div className="container">
             <div className="row">
@@ -55,7 +72,7 @@ const Author = () => {
 
               <div className="col-md-12">
                 <div className="de_tab tab_simple">
-                  <AuthorItems />
+                  <AuthorItems author={authors}/>
                 </div>
               </div>
             </div>
