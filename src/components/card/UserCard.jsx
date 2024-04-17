@@ -2,18 +2,18 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Countdown from "../Countdown";
 
-export default function UserCard({item}) {
+export default function UserCard({item, author}) {
   return (
     <>
       <div className="nft__item">
         <div className="author_list_pp">
           <Link
-            to="/author"
+            to={"/author/" + item.authorId} 
             data-bs-toggle="tooltip"
             data-bs-placement="top"
             title="Creator: Monica Lucas"
           >
-            <img className="lazy" src={item.authorImage} alt="" />
+            <img className="lazy" src={item.authorImage || author.authorImage} alt="" />
             <i className="fa fa-check"></i>
           </Link>
         </div>
@@ -42,7 +42,7 @@ export default function UserCard({item}) {
             </div>
           </div>
 
-          <Link to="/item-details">
+          <Link to={`/item-details/${item.nftId}`}>
             <img
               src={item.nftImage}
               className="lazy nft__item_preview"
@@ -50,7 +50,7 @@ export default function UserCard({item}) {
             />
           </Link>
         </div>
-        <div className="nft__item_info">
+        <div className={`/item-details/${item.nftId}`}>
           <Link to="/item-details">
             <h4>{item.title}</h4>
           </Link>
