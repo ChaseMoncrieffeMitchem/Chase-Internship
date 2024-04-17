@@ -6,7 +6,6 @@ import UserCard from "../card/UserCard";
 
 const AuthorItems = ({ author, nft, loading }) => {
 
-
   return (
     <div className="de_tab_content">
       <div className="tab-1">
@@ -43,8 +42,8 @@ const AuthorItems = ({ author, nft, loading }) => {
                   className="col-lg-3 col-md-6 col-sm-6 col-xs-12"
                   key={item.nftId}
                 >
-                  <UserCard item={item}
-                  author={author}/>
+                  <UserCard author={author}
+                  item={item}/>
                 </div>
               ))}
         </div>
