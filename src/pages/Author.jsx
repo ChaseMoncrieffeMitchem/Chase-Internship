@@ -25,6 +25,10 @@ const Author = () => {
     fetchAuthors();
   }, []);
 
+  function changeFollowerCount() {
+    return authors.followers = authors.followers + 1
+  }
+
   return (
     <div id="wrapper">
       <div className="no-bottom no-top" id="content">
@@ -65,7 +69,7 @@ const Author = () => {
                   <div className="profile_follow de-flex">
                     <div className="de-flex-col">
                       <div className="profile_follower">{authors.followers}</div>
-                      <Link to="#" className="btn-main">
+                      <Link to="#" onClick={() => changeFollowerCount()} className="btn-main">
                         Follow
                       </Link>
                     </div>
