@@ -5,8 +5,14 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Skeleton from "../UI/Skeleton";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const HotCollections = () => {
+  AOS.init({
+    easing: "ease",
+  });
+
   const [collections, setCollections] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -102,71 +108,75 @@ const HotCollections = () => {
         <div className="row">
           <div className="col-lg-12">
             <div className="text-center">
-              <h2>Hot Collections</h2>
+              <div data-aos="fade-up" data-aos-duration="1300">
+                <h2>Hot Collections</h2>
+              </div>
               <div className="small-border bg-color-2"></div>
             </div>
           </div>
-          <Slider {...settings}>
-            {loading
-              ? new Array(6).fill(0).map((_, index) => (
-                  <div key={index}>
-                    <div className="nft_coll">
-                      <div className="nft_wrap">
-                        <Skeleton
-                          className="lazy img-fluid"
-                          width="323px"
-                          height="300px"
-                        />
-                      </div>
-                      <div className="nft_coll_pp">
-                        <Skeleton
-                          width="60px"
-                          height="60px"
-                          borderRadius="50%"
-                        />
-                        <i className="fa fa-check"></i>
-                      </div>
-                      <div className="nft_coll_info">
-                        <Skeleton width="160px" height="15px" />
-                      </div>
-                      <div>
-                        <Skeleton width="160px" height="15px" />
-                      </div>
-                    </div>
-                  </div>
-                ))
-              : collections.map((collection) => (
-                  <div key={collection.id}>
-                    <div className="nft_coll">
-                      <div className="nft_wrap">
-                        <Link to="/item-details">
-                          <img
-                            src={collection.nftImage}
+          <div data-aos="fade-up" data-aos-duration="1300" data-aos-delay="200">
+            <Slider {...settings}>
+              {loading
+                ? new Array(6).fill(0).map((_, index) => (
+                    <div key={index}>
+                      <div className="nft_coll">
+                        <div className="nft_wrap">
+                          <Skeleton
                             className="lazy img-fluid"
-                            alt=""
+                            width="323px"
+                            height="300px"
                           />
-                        </Link>
-                      </div>
-                      <div className="nft_coll_pp">
-                        <Link to={"/author/" + collection.authorId}>
-                          <img
-                            className="lazy pp-coll"
-                            src={collection.authorImage}
-                            alt=""
+                        </div>
+                        <div className="nft_coll_pp">
+                          <Skeleton
+                            width="60px"
+                            height="60px"
+                            borderRadius="50%"
                           />
-                        </Link>
-                        <i className="fa fa-check"></i>
-                      </div>
-                      <div className="nft_coll_info">
-                        <Link to="/explore">
-                          <h4>{collection.title}</h4>
-                        </Link>
-                        <span>ERC-{collection.code}</span>
+                          <i className="fa fa-check"></i>
+                        </div>
+                        <div className="nft_coll_info">
+                          <Skeleton width="160px" height="15px" />
+                        </div>
+                        <div>
+                          <Skeleton width="160px" height="15px" />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-          </Slider>
+                  ))
+                : collections.map((collection) => (
+                    <div key={collection.id}>
+                      <div className="nft_coll">
+                        <div className="nft_wrap">
+                          <Link to="/item-details">
+                            <img
+                              src={collection.nftImage}
+                              className="lazy img-fluid"
+                              alt=""
+                            />
+                          </Link>
+                        </div>
+                        <div className="nft_coll_pp">
+                          <Link to={"/author/" + collection.authorId}>
+                            <img
+                              className="lazy pp-coll"
+                              src={collection.authorImage}
+                              alt=""
+                            />
+                          </Link>
+                          <i className="fa fa-check"></i>
+                        </div>
+                        <div className="nft_coll_info">
+                          <Link to="/explore">
+                            <h4>{collection.title}</h4>
+                          </Link>
+                          <span>ERC-{collection.code}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+            </Slider>
+          </div>
         </div>
       </div>
     </section>

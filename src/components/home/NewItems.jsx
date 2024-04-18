@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Skeleton from "../UI/Skeleton";
-import Countdown from "../Countdown";
 import UserCard from "../card/UserCard";
 import SkeletonCard from "../card/SkeletonCard";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const NewItems = () => {
+  AOS.init({
+    easing: "ease",
+  });
+
   const [newItems, setNewItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -18,13 +21,16 @@ const NewItems = () => {
     return (
       <div
         className={className}
-        style={{ ...style, display: "flex",
+        style={{
+          ...style,
+          display: "flex",
           backgroundColor: "black",
           width: "40px",
           height: "40px",
           justifyContent: "center",
           alignItems: "center",
-          borderRadius: "50%",}}
+          borderRadius: "50%",
+        }}
         onClick={onClick}
       />
     );
@@ -102,23 +108,27 @@ const NewItems = () => {
         <div className="row">
           <div className="col-lg-12">
             <div className="text-center">
-              <h2>New Items</h2>
+              <div data-aos="fade-up" data-aos-duration="1300">
+                <h2>New Items</h2>
+              </div>
               <div className="small-border bg-color-2"></div>
             </div>
           </div>
-          <Slider {...settings}>
-            {loading ? (
-              <div>
-                <SkeletonCard />
-              </div>
-            ) : (
-              newItems.map((item, index) => (
-                <div key={index}>
-                  <UserCard item={item}/>
+          <div data-aos="fade-up" data-aos-duration="1300">
+            <Slider {...settings}>
+              {loading ? (
+                <div>
+                  <SkeletonCard />
                 </div>
-              ))
-            )}
-          </Slider>
+              ) : (
+                newItems.map((item, index) => (
+                  <div key={index}>
+                    <UserCard item={item} />
+                  </div>
+                ))
+              )}
+            </Slider>
+          </div>
         </div>
       </div>
     </section>

@@ -9,7 +9,8 @@ const Author = () => {
   let { id } = useParams();
   const [authors, setAuthors] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [nft, setNft] = useState([])
+  const [nft, setNft] = useState([]);
+  const [follower, setFollower] = useState(true)
 
   useEffect(() => {
     async function fetchAuthors() {
@@ -26,7 +27,15 @@ const Author = () => {
   }, []);
 
   function changeFollowerCount() {
-    return authors.followers = authors.followers + 1
+    setFollower((prev) => !prev)
+    
+    if(follower === true) {
+      authors.followers = authors.followers + 1
+    }
+    
+    if (follower === false){
+      authors.followers = authors.followers - 1
+    }
   }
 
   return (
@@ -70,7 +79,7 @@ const Author = () => {
                     <div className="de-flex-col">
                       <div className="profile_follower">{authors.followers}</div>
                       <Link to="#" onClick={() => changeFollowerCount()} className="btn-main">
-                        Follow
+                        {follower ? "Follow" : "Unfollow"}
                       </Link>
                     </div>
                   </div>
